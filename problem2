@@ -1,0 +1,210 @@
+MariaDB [(none)]> CREATE DATABASE employee
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> USE employee ;
+Database changed
+MariaDB [employee]> CREATE TABLE employ(empno int,empname varchar(20),empdesignation varchar(20),salary int,DOB int,depatmentno int);
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [employee]> SELECT * from employ;
+Empty set (0.00 sec)
+
+MariaDB [employee]> SELECT * employ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'employ' at line 1
+MariaDB [employee]> SELECT * employ;
+[1]+  Stopped                 sudo mysql -u root -p
+student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ select * from employ;
+bash: syntax error near unexpected token `from'
+student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ USE employee;
+USE: command not found
+student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ sudo mysql -u root -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 35
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use employee;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [employee]> INSERT INTO employ (1,'Akhil','UX Designer',20000,15/06/1998,5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1,'Akhil','UX Designer',20000,15/06/1998,5)' at line 1
+MariaDB [employee]> INSERT INTO employ (1,'Akhil','UX Designer',20000,15-06-1998,5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1,'Akhil','UX Designer',20000,15-06-1998,5)' at line 1
+MariaDB [employee]> INSERT INTO employ (1,'Akhil','UX Designer',20000,15.06.1998,5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1,'Akhil','UX Designer',20000,15.06.1998,5)' at line 1
+MariaDB [employee]> INSERT INTO employ VALUES(1,'Akhil','UX Designer',20000,15.06.1998,5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.1998,5)' at line 1
+MariaDB [employee]> INSERT INTO employ values(1,'Akhil','UX Designer',20000,15-06-1998,5);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [employee]> INSERT INTO employ values(2,'Vaisakh','Product Manager',35000,15-06-1998,6),(3,'HariKrishnan','Game Developer',55000,16-05-1999),(4,'DevikaPramod','Counsler',20000,14-12-2000,6);
+ERROR 1136 (21S01): Column count doesn't match value count at row 2
+MariaDB [employee]> INSERT INTO employ values(2,'Vaisakh','Product Manager',35000,15-06-1998,6),(3,'HariKrishnan','Game Developer',55000,16-05-1999,6),(4,'DevikaPramod','Counsler',20000,14-12-2000,6);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> select * from employ;
++-------+--------------+-----------------+--------+-------+-------------+
+| empno | empname      | empdesignation  | salary | DOB   | depatmentno |
++-------+--------------+-----------------+--------+-------+-------------+
+|     1 | Akhil        | UX Designer     |  20000 | -1989 |           5 |
+|     2 | Vaisakh      | Product Manager |  35000 | -1989 |           6 |
+|     3 | HariKrishnan | Game Developer  |  55000 | -1988 |           6 |
+|     4 | DevikaPramod | Counsler        |  20000 | -1998 |           6 |
++-------+--------------+-----------------+--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [employee]> INSERT INTO employ values(5,'Manoharan','frontend Developer',9000,15-06-1998,6);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [employee]> select * from employ;
++-------+--------------+--------------------+--------+-------+-------------+
+| empno | empname      | empdesignation     | salary | DOB   | depatmentno |
++-------+--------------+--------------------+--------+-------+-------------+
+|     1 | Akhil        | UX Designer        |  20000 | -1989 |           5 |
+|     2 | Vaisakh      | Product Manager    |  35000 | -1989 |           6 |
+|     3 | HariKrishnan | Game Developer     |  55000 | -1988 |           6 |
+|     4 | DevikaPramod | Counsler           |  20000 | -1998 |           6 |
+|     5 | Manoharan    | frontend Developer |   9000 | -1989 |           6 |
++-------+--------------+--------------------+--------+-------+-------------+
+5 rows in set (0.00 sec)
+
+MariaDB [employee]> INSERT INTO employ values(6,'rahul','Backend Developer',9000,15-06-1998,5);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [employee]> select * from employ;
++-------+--------------+--------------------+--------+-------+-------------+
+| empno | empname      | empdesignation     | salary | DOB   | depatmentno |
++-------+--------------+--------------------+--------+-------+-------------+
+|     1 | Akhil        | UX Designer        |  20000 | -1989 |           5 |
+|     2 | Vaisakh      | Product Manager    |  35000 | -1989 |           6 |
+|     3 | HariKrishnan | Game Developer     |  55000 | -1988 |           6 |
+|     4 | DevikaPramod | Counsler           |  20000 | -1998 |           6 |
+|     5 | Manoharan    | frontend Developer |   9000 | -1989 |           6 |
+|     6 | rahul        | Backend Developer  |   9000 | -1989 |           5 |
++-------+--------------+--------------------+--------+-------+-------------+
+6 rows in set (0.00 sec)
+
+MariaDB [employee]> select * from employ where salary >= 10000;
++-------+--------------+-----------------+--------+-------+-------------+
+| empno | empname      | empdesignation  | salary | DOB   | depatmentno |
++-------+--------------+-----------------+--------+-------+-------------+
+|     1 | Akhil        | UX Designer     |  20000 | -1989 |           5 |
+|     2 | Vaisakh      | Product Manager |  35000 | -1989 |           6 |
+|     3 | HariKrishnan | Game Developer  |  55000 | -1988 |           6 |
+|     4 | DevikaPramod | Counsler        |  20000 | -1998 |           6 |
++-------+--------------+-----------------+--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [employee]> delete * from employ where departmentno == 6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from employ where departmentno == 6' at line 1
+MariaDB [employee]> delete * from employ where departmentno = 6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from employ where departmentno = 6' at line 1
+MariaDB [employee]> delete from employ where departmentno = 6;
+ERROR 1054 (42S22): Unknown column 'departmentno' in 'where clause'
+MariaDB [employee]> delete * from employ where depatmentno = 6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from employ where depatmentno = 6' at line 1
+MariaDB [employee]> delete * from employ where depatmentno == 6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from employ where depatmentno == 6' at line 1
+MariaDB [employee]> delete * from employ where depatmentno = 6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from employ where depatmentno = 6' at line 1
+MariaDB [employee]> delete from employ where depatmentno = 6;
+Query OK, 4 rows affected (0.04 sec)
+
+MariaDB [employee]> select * from employ;
++-------+---------+-------------------+--------+-------+-------------+
+| empno | empname | empdesignation    | salary | DOB   | depatmentno |
++-------+---------+-------------------+--------+-------+-------------+
+|     1 | Akhil   | UX Designer       |  20000 | -1989 |           5 |
+|     6 | rahul   | Backend Developer |   9000 | -1989 |           5 |
++-------+---------+-------------------+--------+-------+-------------+
+2 rows in set (0.00 sec)
+
+MariaDB [employee]> INSERT INTO employ values(6,'satheesh','manager',50000,15-06-1988,5);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [employee]> select * from employ;
++-------+----------+-------------------+--------+-------+-------------+
+| empno | empname  | empdesignation    | salary | DOB   | depatmentno |
++-------+----------+-------------------+--------+-------+-------------+
+|     1 | Akhil    | UX Designer       |  20000 | -1989 |           5 |
+|     6 | rahul    | Backend Developer |   9000 | -1989 |           5 |
+|     6 | satheesh | manager           |  50000 | -1979 |           5 |
++-------+----------+-------------------+--------+-------+-------------+
+3 rows in set (0.01 sec)
+
+MariaDB [employee]> update employ set salary = 55000 where empdesignation = manager;
+ERROR 1054 (42S22): Unknown column 'manager' in 'where clause'
+MariaDB [employee]> update employ set salary = 55000 where empdesignation = 'manager';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [employee]> select * from employ;
++-------+----------+-------------------+--------+-------+-------------+
+| empno | empname  | empdesignation    | salary | DOB   | depatmentno |
++-------+----------+-------------------+--------+-------+-------------+
+|     1 | Akhil    | UX Designer       |  20000 | -1989 |           5 |
+|     6 | rahul    | Backend Developer |   9000 | -1989 |           5 |
+|     6 | satheesh | manager           |  55000 | -1979 |           5 |
++-------+----------+-------------------+--------+-------+-------------+
+3 rows in set (0.00 sec)
+
+MariaDB [employee]> update employ set salary = salary + 5000  where empdesignation = 'manager';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [employee]> select * from employ;
++-------+----------+-------------------+--------+-------+-------------+
+| empno | empname  | empdesignation    | salary | DOB   | depatmentno |
++-------+----------+-------------------+--------+-------+-------------+
+|     1 | Akhil    | UX Designer       |  20000 | -1989 |           5 |
+|     6 | rahul    | Backend Developer |   9000 | -1989 |           5 |
+|     6 | satheesh | manager           |  60000 | -1979 |           5 |
++-------+----------+-------------------+--------+-------+-------------+
+3 rows in set (0.00 sec)
+
+MariaDB [employee]> select * from employ order by desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc' at line 1
+MariaDB [employee]> select * from employ order by empname;
++-------+----------+-------------------+--------+-------+-------------+
+| empno | empname  | empdesignation    | salary | DOB   | depatmentno |
++-------+----------+-------------------+--------+-------+-------------+
+|     1 | Akhil    | UX Designer       |  20000 | -1989 |           5 |
+|     6 | rahul    | Backend Developer |   9000 | -1989 |           5 |
+|     6 | satheesh | manager           |  60000 | -1979 |           5 |
++-------+----------+-------------------+--------+-------+-------------+
+3 rows in set (0.00 sec)
+
+MariaDB [employee]> select * from employ;
++-------+----------+-------------------+--------+-------+-------------+
+| empno | empname  | empdesignation    | salary | DOB   | depatmentno |
++-------+----------+-------------------+--------+-------+-------------+
+|     1 | Akhil    | UX Designer       |  20000 | -1989 |           5 |
+|     6 | rahul    | Backend Developer |   9000 | -1989 |           5 |
+|     6 | satheesh | manager           |  60000 | -1979 |           5 |
++-------+----------+-------------------+--------+-------+-------------+
+3 rows in set (0.00 sec)
+
+MariaDB [employee]> delete * from employ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from employ' at line 1
+MariaDB [employee]> select * from employ delete;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'delete' at line 1
+MariaDB [employee]> truncate table employ;
+Query OK, 0 rows affected (0.18 sec)
+
+MariaDB [employee]> delete * from employ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from employ' at line 1
+MariaDB [employee]> select * from employ;
+Empty set (0.00 sec)
+
+MariaDB [employee]> Ctrl-C -- exit!
+Aborted
+student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ 
+

@@ -1,0 +1,223 @@
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 33
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database Books;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> use Books
+Database changed
+MariaDB [Books]> create table author(id int PRIMARY KEY,name varchar(20),city varchar (20),country varchar(20));
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [Books]> create table publisher(id int PRIMARY KEY,name varchar(20),city varchar (20),country varchar(20));
+Query OK, 0 rows affected (0.25 sec)
+
+MariaDB [Books]> create table category(id int PRIMARY KEY,description varchar(100));
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [Books]> create table publisher(bookId int,title varchar(20), authorId varchar(20),publisherId varchar(20),categoryId varchar(20),category varchar(20),year date,price int);
+ERROR 1050 (42S01): Table 'publisher' already exists
+MariaDB [Books]> create table books(bookId int,title varchar(20), authorId varchar(20),publisherId varchar(20),categoryId varchar(20),category varchar(20),year date,price int);
+Query OK, 0 rows affected (0.22 sec)
+
+MariaDB [Books]> alter table books add constraint books_pk Primary key(bookId);
+Query OK, 0 rows affected (0.52 sec)               
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [Books]> insert into author values(001,'HarryPotter',Thrissur,India),(002,'HG Wells','Ernakulam','India'),(003,'James Mathew P','Paalakad','India');
+ERROR 1054 (42S22): Unknown column 'Thrissur' in 'field list'
+MariaDB [Books]> insert into author values(001,'HarryPotter','Thrissur',India),(002,'HG Wells','Ernakulam','India'),(003,'James Mathew P','Paalakad','India');
+ERROR 1054 (42S22): Unknown column 'India' in 'field list'
+MariaDB [Books]> insert into author values(001,'HarryPotter','Thrissur','India'),(002,'HG Wells','Ernakulam','India'),(003,'James Mathew P','Paalakad','India');
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [Books]> select * from author;
++----+----------------+-----------+---------+
+| id | name           | city      | country |
++----+----------------+-----------+---------+
+|  1 | HarryPotter    | Thrissur  | India   |
+|  2 | HG Wells       | Ernakulam | India   |
+|  3 | James Mathew P | Paalakad  | India   |
++----+----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [Books]> insert into publisher values(010,'Penguin','Thrissur','India'),(020,'Cambridge','Ernakulam','India'),(030,'HK Publications','Paalakad','India');
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [Books]> select * from publisher;
++----+-----------------+-----------+---------+
+| id | name            | city      | country |
++----+-----------------+-----------+---------+
+| 10 | Penguin         | Thrissur  | India   |
+| 20 | Cambridge       | Ernakulam | India   |
+| 30 | HK Publications | Paalakad  | India   |
++----+-----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [Books]> inser into category(201,'Fiction'),(202,'Horror'),(203,'Drama');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'inser into category(201,'Fiction'),(202,'Horror'),(203,'Drama')' at line 1
+MariaDB [Books]> inser into category values(201,'Fiction'),(202,'Horror'),(203,'Drama');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'inser into category values(201,'Fiction'),(202,'Horror'),(203,'Drama')' at line 1
+MariaDB [Books]> insert into category values(201,'Fiction'),(202,'Horror'),(203,'Drama');
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [Books]> select * from category;
++-----+-------------+
+| id  | description |
++-----+-------------+
+| 201 | Fiction     |
+| 202 | Horror      |
+| 203 | Drama       |
++-----+-------------+
+3 rows in set (0.00 sec)
+
+MariaDB [Books]> insert into books values(360,'Aliens','3','30','Fiction','2001-06-11',600)Ctrl-C -- exit!
+Aborted
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 34
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use Books;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [Books]> insert into books values(360,'Band Aliens','3','30','Fiction','1996-06-11',600),(361,'Jiggar','2','20','Drama','1997-05-11',500),(362,'Jurrasic park','2','10','Horror','1998-04-12',1000);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [Books]> insert into books values(360,'Band Aliens','3','30','201','Fiction','1996-06-11',600),(361,'Jiggar','2','20','203','Drama','1997-05-11',500),(362,'Jurrasic park','2','10','202','Horror','1998-04-12',1000);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [Books]> select * from books;
++--------+---------------+----------+-------------+------------+----------+------------+-------+
+| bookId | title         | authorId | publisherId | categoryId | category | year       | price |
++--------+---------------+----------+-------------+------------+----------+------------+-------+
+|    360 | Band Aliens   | 3        | 30          | 201        | Fiction  | 1996-06-11 |   600 |
+|    361 | Jiggar        | 2        | 20          | 203        | Drama    | 1997-05-11 |   500 |
+|    362 | Jurrasic park | 2        | 10          | 202        | Horror   | 1998-04-12 |  1000 |
++--------+---------------+----------+-------------+------------+----------+------------+-------+
+3 rows in set (0.00 sec)
+
+MariaDB [Books]> select * from books where bookId,title,price;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'title,price' at line 1
+MariaDB [Books]> select from books where bookId,title,price;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from books where bookId,title,price' at line 1
+MariaDB [Books]> select * from books bookId,title,price;
+ERROR 1146 (42S02): Table 'Books.title' doesn't exist
+MariaDB [Books]> select bookId,title,price from books;
++--------+---------------+-------+
+| bookId | title         | price |
++--------+---------------+-------+
+|    360 | Band Aliens   |   600 |
+|    361 | Jiggar        |   500 |
+|    362 | Jurrasic park |  1000 |
++--------+---------------+-------+
+3 rows in set (0.01 sec)
+
+MariaDB [Books]> select title from books where price > 500;
++---------------+
+| title         |
++---------------+
+| Band Aliens   |
+| Jurrasic park |
++---------------+
+2 rows in set (0.00 sec)
+
+MariaDB [Books]> select title from books b left join category c on b.categoryId = c.id where c.description!= 'fiction';
++---------------+
+| title         |
++---------------+
+| Jurrasic park |
+| Jiggar        |
++---------------+
+2 rows in set (0.01 sec)
+
+MariaDB [Books]> select * from books where title like 'B%';
++--------+-------------+----------+-------------+------------+----------+------------+-------+
+| bookId | title       | authorId | publisherId | categoryId | category | year       | price |
++--------+-------------+----------+-------------+------------+----------+------------+-------+
+|    360 | Band Aliens | 3        | 30          | 201        | Fiction  | 1996-06-11 |   600 |
++--------+-------------+----------+-------------+------------+----------+------------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [Books]> select title,A.name as author ,p.name as publisher from books b left join author a on a.id = b.authorId left join publisher p on p.id = b.publisherId;
+ERROR 1054 (42S22): Unknown column 'A.name' in 'field list'
+MariaDB [Books]> 
+MariaDB [Books]> ): Unknown column 'A.name' in 'field list'
+MariaDB [Books]>  a on a.id = b.authorId left join publisher p on p.id = b.publis
+MariaDB [Books]> 
+MariaDB [Books]> select * from books join publisher on books.publisherId = publisher.id;
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+
+| bookId | title         | authorId | publisherId | categoryId | category | year       | price | id | name            | city      | country |
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+
+|    362 | Jurrasic park | 2        | 10          | 202        | Horror   | 1998-04-12 |  1000 | 10 | Penguin         | Thrissur  | India   |
+|    361 | Jiggar        | 2        | 20          | 203        | Drama    | 1997-05-11 |   500 | 20 | Cambridge       | Ernakulam | India   |
+|    360 | Band Aliens   | 3        | 30          | 201        | Fiction  | 1996-06-11 |   600 | 30 | HK Publications | Paalakad  | India   |
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [Books]> select * from books join publisher on books.publisherId = publisher.id join author on books.authorId = author.id;
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+----+----------------+-----------+---------+
+| bookId | title         | authorId | publisherId | categoryId | category | year       | price | id | name            | city      | country | id | name           | city      | country |
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+----+----------------+-----------+---------+
+|    362 | Jurrasic park | 2        | 10          | 202        | Horror   | 1998-04-12 |  1000 | 10 | Penguin         | Thrissur  | India   |  2 | HG Wells       | Ernakulam | India   |
+|    361 | Jiggar        | 2        | 20          | 203        | Drama    | 1997-05-11 |   500 | 20 | Cambridge       | Ernakulam | India   |  2 | HG Wells       | Ernakulam | India   |
+|    360 | Band Aliens   | 3        | 30          | 201        | Fiction  | 1996-06-11 |   600 | 30 | HK Publications | Paalakad  | India   |  3 | James Mathew P | Paalakad  | India   |
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+----+----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [Books]> select * from books join publisher on books.publisherId = publisher.id join author on books.authorId = author.id where year == '1996';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '1996'' at line 1
+MariaDB [Books]> select * from books join publisher on books.publisherId = publisher.id join author on books.authorId = author.id where year = '1996';
+Empty set, 1 warning (0.01 sec)
+
+MariaDB [Books]> select * from books join publisher on books.publisherId = publisher.id join author on books.authorId = author.id where year = '1996-06-11';
++--------+-------------+----------+-------------+------------+----------+------------+-------+----+-----------------+----------+---------+----+----------------+----------+---------+
+| bookId | title       | authorId | publisherId | categoryId | category | year       | price | id | name            | city     | country | id | name           | city     | country |
++--------+-------------+----------+-------------+------------+----------+------------+-------+----+-----------------+----------+---------+----+----------------+----------+---------+
+|    360 | Band Aliens | 3        | 30          | 201        | Fiction  | 1996-06-11 |   600 | 30 | HK Publications | Paalakad | India   |  3 | James Mathew P | Paalakad | India   |
++--------+-------------+----------+-------------+------------+----------+------------+-------+----+-----------------+----------+---------+----+----------------+----------+---------+
+1 row in set (0.00 sec)
+
+MariaDB [Books]> select * from books join publisher on books.publisherId = publisher.id join author on books.authorId = author.id where year = '1996-06-11','1997-05-11'; 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''1997-05-11'' at line 1
+MariaDB [Books]> select * from books join publisher on books.publisherId = publisher.id join author on books.authorId = author.id where year in(years) = '1996-06-11','1997-05-11';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''1997-05-11'' at line 1
+MariaDB [Books]> select * from books join publisher on books.publisherId = publisher.id join author on books.authorId = author.id where year in ('1996-06-11','1997-05-11','1998-04-12');
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+----+----------------+-----------+---------+
+| bookId | title         | authorId | publisherId | categoryId | category | year       | price | id | name            | city      | country | id | name           | city      | country |
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+----+----------------+-----------+---------+
+|    362 | Jurrasic park | 2        | 10          | 202        | Horror   | 1998-04-12 |  1000 | 10 | Penguin         | Thrissur  | India   |  2 | HG Wells       | Ernakulam | India   |
+|    361 | Jiggar        | 2        | 20          | 203        | Drama    | 1997-05-11 |   500 | 20 | Cambridge       | Ernakulam | India   |  2 | HG Wells       | Ernakulam | India   |
+|    360 | Band Aliens   | 3        | 30          | 201        | Fiction  | 1996-06-11 |   600 | 30 | HK Publications | Paalakad  | India   |  3 | James Mathew P | Paalakad  | India   |
++--------+---------------+----------+-------------+------------+----------+------------+-------+----+-----------------+-----------+---------+----+----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [Books]> select * from books where price between 500 and 800;
++--------+-------------+----------+-------------+------------+----------+------------+-------+
+| bookId | title       | authorId | publisherId | categoryId | category | year       | price |
++--------+-------------+----------+-------------+------------+----------+------------+-------+
+|    360 | Band Aliens | 3        | 30          | 201        | Fiction  | 1996-06-11 |   600 |
+|    361 | Jiggar      | 2        | 20          | 203        | Drama    | 1997-05-11 |   500 |
++--------+-------------+----------+-------------+------------+----------+------------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [Books]> 
+

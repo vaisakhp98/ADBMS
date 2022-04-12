@@ -1,0 +1,190 @@
+student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ sudo mysql =u root -p
+[sudo] password for student: 
+mysql  Ver 15.1 Distrib 10.0.38-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Usage: mysql [OPTIONS] [database]
+MariaDB [(none)]> create database clientmaster;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> use clientmaster;
+Database changed
+MariaDB [clientmaster]> create table clientmaster;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [clientmaster]> create table clientmaster(clientNum varchar(8),clientName varchar(20),address varchar(50),city varchar(50),pincode int,state varchar(50));
+Query OK, 0 rows affected (0.40 sec)
+
+MariaDB [clientmaster]> create table clientmaster1(clientNum varchar(8),clientName varchar(20),address varchar(50),city varchar(50),pincode int,state varchar(50));
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [clientmaster]> INSERT INTO clientmaster1 VALUES('CO195','Hari','X-FIles','Aluva',680112,'Kerala'),('CO196','Jabir','Y-Files','Chandrapinny',680112,'Kerala');
+Query OK, 2 rows affected (0.04 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [clientmaster]> INSERT INTO clientmaster1 VALUES('CO197','Devika','Z-FIles','Kochi',680112,'Kerala'),('CO198','Shyam','0-Files','Paalakad',680012,'Kerala'),('CO199','Vidul','I-FIles','Kodungallur',680662,'Kerala'),('CO200','Jaya','J-FIles','Ernakulam',680112,'Kerala');
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [clientmaster]> select * from clientmaster1;
++-----------+------------+---------+--------------+---------+--------+
+| clientNum | clientName | address | city         | pincode | state  |
++-----------+------------+---------+--------------+---------+--------+
+| CO195     | Hari       | X-FIles | Aluva        |  680112 | Kerala |
+| CO196     | Jabir      | Y-Files | Chandrapinny |  680112 | Kerala |
+| CO197     | Devika     | Z-FIles | Kochi        |  680112 | Kerala |
+| CO198     | Shyam      | 0-Files | Paalakad     |  680012 | Kerala |
+| CO199     | Vidul      | I-FIles | Kodungallur  |  680662 | Kerala |
+| CO200     | Jaya       | J-FIles | Ernakulam    |  680112 | Kerala |
++-----------+------------+---------+--------------+---------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> select clientNum from clientmaster;
+Empty set (0.00 sec)
+
+MariaDB [clientmaster]> select clientNum from clientmaster1;
++-----------+
+| clientNum |
++-----------+
+| CO195     |
+| CO196     |
+| CO197     |
+| CO198     |
+| CO199     |
+| CO200     |
++-----------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> select clientNum,clientname from clientmaster1;
++-----------+------------+
+| clientNum | clientname |
++-----------+------------+
+| CO195     | Hari       |
+| CO196     | Jabir      |
+| CO197     | Devika     |
+| CO198     | Shyam      |
+| CO199     | Vidul      |
+| CO200     | Jaya       |
++-----------+------------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> select clientNum,clientname,address,city from clientmaster1 order by clientname;
++-----------+------------+---------+--------------+
+| clientNum | clientname | address | city         |
++-----------+------------+---------+--------------+
+| CO197     | Devika     | Z-FIles | Kochi        |
+| CO195     | Hari       | X-FIles | Aluva        |
+| CO196     | Jabir      | Y-Files | Chandrapinny |
+| CO200     | Jaya       | J-FIles | Ernakulam    |
+| CO198     | Shyam      | 0-Files | Paalakad     |
+| CO199     | Vidul      | I-FIles | Kodungallur  |
++-----------+------------+---------+--------------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> select clientNum,clientname,address,city from clientmaster1 order by clientname desc;
++-----------+------------+---------+--------------+
+| clientNum | clientname | address | city         |
++-----------+------------+---------+--------------+
+| CO199     | Vidul      | I-FIles | Kodungallur  |
+| CO198     | Shyam      | 0-Files | Paalakad     |
+| CO200     | Jaya       | J-FIles | Ernakulam    |
+| CO196     | Jabir      | Y-Files | Chandrapinny |
+| CO195     | Hari       | X-FIles | Aluva        |
+| CO197     | Devika     | Z-FIles | Kochi        |
++-----------+------------+---------+--------------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> select distinct(clientname) from clientmaster;
+Empty set (0.00 sec)
+
+MariaDB [clientmaster]> select distinct(clientname) from clientmaster1;
++------------+
+| clientname |
++------------+
+| Hari       |
+| Jabir      |
+| Devika     |
+| Shyam      |
+| Vidul      |
+| Jaya       |
++------------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> alter table clientmaster1 add(telno int,faxno int);
+Query OK, 0 rows affected (0.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [clientmaster]> SELECT * from clientmaster1;
++-----------+------------+---------+--------------+---------+--------+-------+-------+
+| clientNum | clientName | address | city         | pincode | state  | telno | faxno |
++-----------+------------+---------+--------------+---------+--------+-------+-------+
+| CO195     | Hari       | X-FIles | Aluva        |  680112 | Kerala |  NULL |  NULL |
+| CO196     | Jabir      | Y-Files | Chandrapinny |  680112 | Kerala |  NULL |  NULL |
+| CO197     | Devika     | Z-FIles | Kochi        |  680112 | Kerala |  NULL |  NULL |
+| CO198     | Shyam      | 0-Files | Paalakad     |  680012 | Kerala |  NULL |  NULL |
+| CO199     | Vidul      | I-FIles | Kodungallur  |  680662 | Kerala |  NULL |  NULL |
+| CO200     | Jaya       | J-FIles | Ernakulam    |  680112 | Kerala |  NULL |  NULL |
++-----------+------------+---------+--------------+---------+--------+-------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> alter table clientmaster1 modify(faxno varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(faxno varchar(20))' at line 1
+MariaDB [clientmaster]> alter table clientmaster1 modify faxno varchar(50);
+Query OK, 6 rows affected (0.65 sec)               
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [clientmaster]> update clientmaster1 set telno = 6646464646 , faxno = 'C300' where clientNum = CO195;
+ERROR 1054 (42S22): Unknown column 'CO195' in 'where clause'
+MariaDB [clientmaster]> update clientmaster1 set telno = 6646464646 , faxno = 'C300' where clientNum = 'CO195';
+Query OK, 1 row affected, 1 warning (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [clientmaster]> SELECT * from clientmaster1;
++-----------+------------+---------+--------------+---------+--------+------------+-------+
+| clientNum | clientName | address | city         | pincode | state  | telno      | faxno |
++-----------+------------+---------+--------------+---------+--------+------------+-------+
+| CO195     | Hari       | X-FIles | Aluva        |  680112 | Kerala | 2147483647 | C300  |
+| CO196     | Jabir      | Y-Files | Chandrapinny |  680112 | Kerala |       NULL | NULL  |
+| CO197     | Devika     | Z-FIles | Kochi        |  680112 | Kerala |       NULL | NULL  |
+| CO198     | Shyam      | 0-Files | Paalakad     |  680012 | Kerala |       NULL | NULL  |
+| CO199     | Vidul      | I-FIles | Kodungallur  |  680662 | Kerala |       NULL | NULL  |
+| CO200     | Jaya       | J-FIles | Ernakulam    |  680112 | Kerala |       NULL | NULL  |
++-----------+------------+---------+--------------+---------+--------+------------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> update clientmaster1 set telno = 6646464646 , faxno = 'C400' where clientNum = 'CO196';
+Query OK, 1 row affected, 1 warning (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [clientmaster]> update clientmaster1 set telno = 6646464646 , faxno = 'C500' where clientNum = 'CO197';
+Query OK, 1 row affected, 1 warning (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [clientmaster]> update clientmaster1 set telno = 6646464646 , faxno = 'C600' where clientNum = 'CO198';
+Query OK, 1 row affected, 1 warning (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [clientmaster]> update clientmaster1 set telno = 6646464646 , faxno = 'C700' where clientNum = 'CO199';
+Query OK, 1 row affected, 1 warning (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [clientmaster]> update clientmaster1 set telno = 6646464646 , faxno = 'C800' where clientNum = 'CO200';
+Query OK, 1 row affected, 1 warning (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [clientmaster]> SELECT * from clientmaster1;
++-----------+------------+---------+--------------+---------+--------+------------+-------+
+| clientNum | clientName | address | city         | pincode | state  | telno      | faxno |
++-----------+------------+---------+--------------+---------+--------+------------+-------+
+| CO195     | Hari       | X-FIles | Aluva        |  680112 | Kerala | 9548466147 | C300  |
+| CO196     | Jabir      | Y-Files | Chandrapinny |  680112 | Kerala | 8434046321 | C400  |
+| CO197     | Devika     | Z-FIles | Kochi        |  680112 | Kerala | 9865232431 | C500  |
+| CO198     | Shyam      | 0-Files | Paalakad     |  680012 | Kerala | 6186516141 | C600  |
+| CO199     | Vidul      | I-FIles | Kodungallur  |  680662 | Kerala | 7896545212 | C700  |
+| CO200     | Jaya       | J-FIles | Ernakulam    |  680112 | Kerala | 2526184566 | C800  |
++-----------+------------+---------+--------------+---------+--------+------------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [clientmaster]> Ctrl-C -- exit!
+Aborted
+student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ 
+
