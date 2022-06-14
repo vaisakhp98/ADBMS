@@ -1,0 +1,82 @@
+> use employee;
+switched to db employee
+> db.createCollection("Empdetails");
+{
+	"ok" : 0,
+	"errmsg" : "Collection already exists. NS: employee.Empdetails",
+	"code" : 48,
+	"codeName" : "NamespaceExists"
+}
+> db.Empdetails.insert({name:"Bhuvan",age:30,email:"bhuvan@gps.com",salary:5000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Mohan",age:32,email:"Mohan@gps.com",salary:4000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Raju",age:29,email:"Raji@gps.com",salary:6000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Manu",age:29,email:"Manu@gps.com",salary:5500})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails({name:"Ram",age:31,email:"Ram@gps.com",salary:4500})
+uncaught exception: TypeError: db.Empdetails is not a function :
+@(shell):1:1
+> db.Empdetails.insert({name:"Ram",age:31,email:"Ram@gps.com",salary:4500})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.find();
+{ "_id" : ObjectId("62a871936cc67c6e8d1e1ae7"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a871c16cc67c6e8d1e1ae8"), "name" : "Mohan", "age" : 32, "email" : "Mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a871df6cc67c6e8d1e1ae9"), "name" : "Raju", "age" : 29, "email" : "Raji@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a871f56cc67c6e8d1e1aea"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a872a36cc67c6e8d1e1aeb"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.findOne({name:"Mohan"});
+{
+	"_id" : ObjectId("62a871c16cc67c6e8d1e1ae8"),
+	"name" : "Mohan",
+	"age" : 32,
+	"email" : "Mohan@gps.com",
+	"salary" : 4000
+}
+> db.Empdetails.find({salary:{$gte:5000}});
+{ "_id" : ObjectId("62a871936cc67c6e8d1e1ae7"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a871df6cc67c6e8d1e1ae9"), "name" : "Raju", "age" : 29, "email" : "Raji@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a871f56cc67c6e8d1e1aea"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+> db.Empdetails.find({name:/^R/});
+{ "_id" : ObjectId("62a871df6cc67c6e8d1e1ae9"), "name" : "Raju", "age" : 29, "email" : "Raji@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a872a36cc67c6e8d1e1aeb"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.find({name:/^R|^M/});
+{ "_id" : ObjectId("62a871c16cc67c6e8d1e1ae8"), "name" : "Mohan", "age" : 32, "email" : "Mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a871df6cc67c6e8d1e1ae9"), "name" : "Raju", "age" : 29, "email" : "Raji@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a871f56cc67c6e8d1e1aea"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a872a36cc67c6e8d1e1aeb"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.find({name:{$nin:["Mohan","Raju","Bhuvan"]}});
+{ "_id" : ObjectId("62a871f56cc67c6e8d1e1aea"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a872a36cc67c6e8d1e1aeb"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.find({name:{$in:["Mohan","Raju","Bhuvan"]}});
+{ "_id" : ObjectId("62a871936cc67c6e8d1e1ae7"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a871c16cc67c6e8d1e1ae8"), "name" : "Mohan", "age" : 32, "email" : "Mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a871df6cc67c6e8d1e1ae9"), "name" : "Raju", "age" : 29, "email" : "Raji@gps.com", "salary" : 6000 }
+> db.Empdetails.find({age:{$lt:30}},{name:1,salary:1});
+{ "_id" : ObjectId("62a871df6cc67c6e8d1e1ae9"), "name" : "Raju", "salary" : 6000 }
+{ "_id" : ObjectId("62a871f56cc67c6e8d1e1aea"), "name" : "Manu", "salary" : 5500 }
+> db.Empdetails.find({$and:[{$lt:30}},{salary:{$gt:5000}}]});
+uncaught exception: SyntaxError: missing ] after element list :
+@(shell):1:34
+> db.Empdetails.find({$and:[age:{$lt:30}},{salary:{$gt:5000}}]});
+uncaught exception: SyntaxError: missing ] after element list :
+@(shell):1:29
+> db.Empdetails.update({name:"Mohan"},{$set:{email:"neil@gps.com"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.findOneAndUpdate({name:"Mohan"},{$set:{email:"neil@gps.com"}});
+{
+	"_id" : ObjectId("62a871c16cc67c6e8d1e1ae8"),
+	"name" : "Mohan",
+	"age" : 32,
+	"email" : "neil@gps.com",
+	"salary" : 4000
+}
+> db.Empdetails.deleteMany({age:{$gt:57}});
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.Empdetails.update({name:"Mohan"},{$set:{age:57}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.deleteMany({age:{$gt:56}});
+{ "acknowledged" : true, "deletedCount" : 1 }
+> 
+
