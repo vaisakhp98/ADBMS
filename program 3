@@ -1,16 +1,10 @@
-student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ sudo mysql =u root -p
-[sudo] password for student: 
-mysql  Ver 15.1 Distrib 10.0.38-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2
-Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
 
-Usage: mysql [OPTIONS] [database]
 MariaDB [(none)]> create database clientmaster;
 Query OK, 1 row affected (0.00 sec)
 
 MariaDB [(none)]> use clientmaster;
 Database changed
-MariaDB [clientmaster]> create table clientmaster;
-ERROR 1113 (42000): A table must have at least 1 column
+
 MariaDB [clientmaster]> create table clientmaster(clientNum varchar(8),clientName varchar(20),address varchar(50),city varchar(50),pincode int,state varchar(50));
 Query OK, 0 rows affected (0.40 sec)
 
@@ -126,8 +120,6 @@ MariaDB [clientmaster]> SELECT * from clientmaster1;
 +-----------+------------+---------+--------------+---------+--------+-------+-------+
 6 rows in set (0.00 sec)
 
-MariaDB [clientmaster]> alter table clientmaster1 modify(faxno varchar(20));
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(faxno varchar(20))' at line 1
 MariaDB [clientmaster]> alter table clientmaster1 modify faxno varchar(50);
 Query OK, 6 rows affected (0.65 sec)               
 Records: 6  Duplicates: 0  Warnings: 0
